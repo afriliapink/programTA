@@ -19,15 +19,10 @@ import prediksi.entity.Cuaca;
  */
 public class TsukamotoManager {
     double [][]f_anggota_swarm;
-    double [] f_anggota_lama;
-    int min_suhu;
-    int min_kelembaban;
-    int min_tekanan_udara;
-    int min_kecepatan_angin;
-    int max_suhu;
-    int max_kelembaban;
-    int max_tekanan_udara;
-    int max_kecepatan_angin;
+    double [] f_anggota_lama, max_akurasi;
+    int min_suhu,min_kelembaban,min_tekanan_udara;
+    int min_kecepatan_angin,max_suhu,max_kelembaban;
+    int max_tekanan_udara, max_kecepatan_angin;
     int cerah, berawan, hujan_ringan, hujan;
     int jumlah_swarm, jumlah_iterasi, v0, iterasi;
     double wmax, wmin, r1, r2, c1, c2;
@@ -639,12 +634,13 @@ public class TsukamotoManager {
         do_fuzzyfikasi();
         do_hitung_fuzzy_tsukamoto();
         akurasi_before = agregasi();
-        
+        double temp=0;
+        int i;
         init_kecepatan();
         init_pbest();
         init_gbest(akurasi_before);
         
-        for (int i = 1; i <= jumlah_iterasi; i++) {
+        for (i = 1; i <= jumlah_iterasi; i++) {
             menghitung_nilai_w(i);
             menghitung_nilai_r();
             menghitung_v();
@@ -659,8 +655,22 @@ public class TsukamotoManager {
             System.out.println("nilai w : " +w);
             System.out.println("nilai r1 : " +r1);
             System.out.println("nilai r2 : " +r2);
+            max_akurasi = akurasi_current;
+        }
+
+    }
+    
+    public double get_akurasi(){
+        double temp=0;
+        int i;
+        
+        for(i=0;i<max_akurasi.length;i++){
+            if(max_akurasi[i] > temp){
+                temp = max_akurasi[i];
+            }
         }
         
+        return temp;
     }
     
     public void menghitung_nilai_w(int current_iterasi){

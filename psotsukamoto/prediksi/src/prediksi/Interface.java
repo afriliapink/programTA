@@ -4,19 +4,19 @@
  * and open the template in the editor.
  */
 package prediksi;
-import java.io.File;
-import java.util.ArrayList;
-import javax.swing.JFileChooser;
+
 import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
 import prediksi.boundary.InterfaceManager;
 import prediksi.entity.Cuaca;
+
 /**
  *
  * @author afrilia
  */
 public class Interface extends javax.swing.JFrame {
-InterfaceManager interface_manager;
+
+    InterfaceManager interface_manager;
+
     /**
      * Creates new form Interface
      */
@@ -36,8 +36,9 @@ InterfaceManager interface_manager;
 
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         lbl_judul = new javax.swing.JLabel();
-        lbl_namafile = new javax.swing.JLabel();
         btn_load = new javax.swing.JButton();
         lbl_parameterpso = new javax.swing.JLabel();
         lbl_jumlahpartikel = new javax.swing.JLabel();
@@ -55,9 +56,17 @@ InterfaceManager interface_manager;
         btn_optimasi = new javax.swing.JButton();
         lbl_akurasitsukamoto = new javax.swing.JLabel();
         lbl_akurasipsotsukamoto = new javax.swing.JLabel();
-        lbl_persenpsotsukamoto = new javax.swing.JLabel();
-        lbl_persentsukamoto = new javax.swing.JLabel();
+        persentase2 = new javax.swing.JLabel();
+        persentase1 = new javax.swing.JLabel();
         btn_hasil = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        namafile = new javax.swing.JLabel();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -72,30 +81,63 @@ InterfaceManager interface_manager;
         ));
         jScrollPane2.setViewportView(jTable1);
 
+        jLabel1.setText("jLabel1");
+
+        jLabel2.setText("jLabel2");
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        lbl_judul.setFont(new java.awt.Font("Bookman Old Style", 1, 18)); // NOI18N
         lbl_judul.setText("PREDIKSI CUACA");
 
-        lbl_namafile.setForeground(new java.awt.Color(204, 204, 204));
-        lbl_namafile.setText("masukkan file");
-
-        btn_load.setText("pilih");
+        btn_load.setFont(new java.awt.Font("Bookman Old Style", 1, 14)); // NOI18N
+        btn_load.setLabel("Browse File");
         btn_load.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_loadActionPerformed(evt);
             }
         });
 
-        lbl_parameterpso.setText("Masukkan Parameter PSO :");
+        lbl_parameterpso.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
+        lbl_parameterpso.setText("Input Parameter PSO");
 
-        lbl_jumlahpartikel.setText("Jumlah Partikel");
+        lbl_jumlahpartikel.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
+        lbl_jumlahpartikel.setText("1. Jumlah Partikel");
 
-        lbl_jumlahiterasi.setText("Jumlah Iterasi");
+        lbl_jumlahiterasi.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
+        lbl_jumlahiterasi.setText("2. Jumlah Iterasi");
 
-        lbl_c1.setText("C1");
+        lbl_c1.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
+        lbl_c1.setText("3. C1");
 
-        lbl_c2.setText("C2");
+        lbl_c2.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
+        lbl_c2.setText("4. C2");
 
+        tf_jumlahpartikel.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tf_jumlahpartikelKeyTyped(evt);
+            }
+        });
+
+        tf_jumlahiterasi.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tf_jumlahiterasiKeyTyped(evt);
+            }
+        });
+
+        tf_c1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tf_c1KeyTyped(evt);
+            }
+        });
+
+        tf_c2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tf_c2KeyTyped(evt);
+            }
+        });
+
+        tbl_data.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         tbl_data.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null, null},
@@ -107,192 +149,286 @@ InterfaceManager interface_manager;
                 "No", "Tanggal", "Suhu", "Kelembaban", "Tekanan Udara", "Kecepatan Angin", "Hasil", "Tsukamoto", "PSO dan Tsukamoto"
             }
         ));
+        tbl_data.setIntercellSpacing(new java.awt.Dimension(0, 1));
+        tbl_data.setRequestFocusEnabled(false);
         jScrollPane3.setViewportView(tbl_data);
+        if (tbl_data.getColumnModel().getColumnCount() > 0) {
+            tbl_data.getColumnModel().getColumn(0).setMinWidth(30);
+            tbl_data.getColumnModel().getColumn(0).setMaxWidth(30);
+        }
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 43, Short.MAX_VALUE))
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1063, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 200, Short.MAX_VALUE))
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 166, Short.MAX_VALUE))
         );
 
         jScrollPane1.setViewportView(jPanel1);
 
+        btn_optimasi.setFont(new java.awt.Font("Bookman Old Style", 1, 14)); // NOI18N
         btn_optimasi.setText("optimasi");
+        btn_optimasi.setEnabled(false);
         btn_optimasi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_optimasiActionPerformed(evt);
             }
         });
 
+        lbl_akurasitsukamoto.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
         lbl_akurasitsukamoto.setText("Akurasi Tsukamoto");
 
+        lbl_akurasipsotsukamoto.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
         lbl_akurasipsotsukamoto.setText("Akurasi Hybrid PSO + Tsukamoto");
 
-        lbl_persenpsotsukamoto.setText("%");
+        persentase2.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
+        persentase2.setText("-");
 
-        lbl_persentsukamoto.setText("%");
+        persentase1.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
+        persentase1.setText("-");
 
+        btn_hasil.setFont(new java.awt.Font("Bookman Old Style", 1, 14)); // NOI18N
         btn_hasil.setText("Hasil");
+        btn_hasil.setEnabled(false);
         btn_hasil.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_hasilActionPerformed(evt);
             }
         });
 
+        jLabel4.setText(":");
+
+        jLabel5.setText(":");
+
+        jLabel6.setText(":");
+
+        jLabel7.setText(":");
+
+        jLabel8.setText(":");
+
+        jLabel9.setText(":");
+
+        jLabel10.setText(":");
+
+        namafile.setFont(new java.awt.Font("Bookman Old Style", 0, 12)); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lbl_judul)
+                .addGap(429, 429, 429))
             .addGroup(layout.createSequentialGroup()
+                .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(145, 145, 145)
-                        .addComponent(lbl_judul))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(20, 20, 20)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lbl_parameterpso)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(lbl_namafile, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btn_load))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lbl_jumlahpartikel)
                                     .addComponent(lbl_jumlahiterasi)
                                     .addComponent(lbl_c1)
                                     .addComponent(lbl_c2))
+                                .addGap(29, 29, 29)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(tf_c2))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(tf_c1))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(tf_jumlahiterasi, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lbl_jumlahpartikel)
                                 .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(tf_jumlahiterasi, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
-                                    .addComponent(tf_jumlahpartikel)
-                                    .addComponent(tf_c1)
-                                    .addComponent(tf_c2)))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 354, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lbl_akurasitsukamoto)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(lbl_persentsukamoto)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(lbl_akurasipsotsukamoto)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(lbl_persenpsotsukamoto)))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap()
+                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(tf_jumlahpartikel, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(btn_hasil)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btn_optimasi)))
-                .addContainerGap(26, Short.MAX_VALUE))
+                        .addComponent(btn_optimasi))
+                    .addComponent(lbl_parameterpso)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1082, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btn_load, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(namafile))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lbl_akurasipsotsukamoto)
+                            .addComponent(lbl_akurasitsukamoto))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(persentase2))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(11, 11, 11)
+                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(persentase1)))))
+                .addContainerGap(24, Short.MAX_VALUE))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(197, 197, 197)
+                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(915, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lbl_judul)
-                .addGap(31, 31, 31)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lbl_namafile)
-                    .addComponent(btn_load, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(26, 26, 26)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btn_load)
+                    .addComponent(namafile))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lbl_parameterpso)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbl_jumlahpartikel)
-                    .addComponent(tf_jumlahpartikel, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tf_jumlahpartikel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbl_jumlahiterasi)
-                    .addComponent(tf_jumlahiterasi, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tf_jumlahiterasi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbl_c1)
-                    .addComponent(tf_c1, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tf_c1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbl_c2)
-                    .addComponent(tf_c2, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tf_c2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btn_optimasi, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_hasil, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btn_hasil, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
+                    .addComponent(btn_optimasi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbl_akurasitsukamoto)
-                    .addComponent(lbl_persentsukamoto))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(persentase1)
+                    .addComponent(jLabel8))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbl_akurasipsotsukamoto)
-                    .addComponent(lbl_persenpsotsukamoto))
+                    .addComponent(persentase2)
+                    .addComponent(jLabel10))
                 .addContainerGap())
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(134, 134, 134)
+                    .addComponent(jLabel9)
+                    .addContainerGap(342, Short.MAX_VALUE)))
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_loadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_loadActionPerformed
         // TODO add your handling code here:
-        ArrayList<Cuaca> data_cuaca;
-        data_cuaca = new ArrayList();
-        String path;
-        JFileChooser chooser = new JFileChooser();
-        int result = chooser.showOpenDialog(this);
-        
-        if (result==JFileChooser.APPROVE_OPTION){
-         File selectedFile = chooser.getSelectedFile();
-         path = selectedFile.getAbsolutePath();
-         data_cuaca = interface_manager.muat_data_excel(path);
-         
-         DefaultTableModel cuaca_model = (DefaultTableModel) tbl_data.getModel();
-         
-         String[] data = new String[7];
-            for (int i = tbl_data.getRowCount()-1; i >=0; i--) {
-                cuaca_model.removeRow(i);
-            }
-
-            for (int i = 0; i < data_cuaca.size(); i++) {
-                data[0] = String.valueOf((int)data_cuaca.get(i).getNo());
-                data[1] = data_cuaca.get(i).getTanggal();
-                data[2] = String.valueOf((int)data_cuaca.get(i).getSuhu());
-                data[3] = String.valueOf((int)data_cuaca.get(i).getKelembaban());
-                data[4] = String.valueOf((int)data_cuaca.get(i).getTekanan_udara());
-                data[5] = String.valueOf(data_cuaca.get(i).getKecepatan_angin());
-                data[6] = data_cuaca.get(i).getKeadaan_cuaca();
-               
-                cuaca_model.addRow(data);
-            }
-        }    
-        else {
-            JOptionPane.showMessageDialog(this, "Muat Data Gagal");
-        }
+        interface_manager.Load_Data(tbl_data,namafile);
+        enable_button();
     }//GEN-LAST:event_btn_loadActionPerformed
 
+    private void enable_button() {
+        btn_hasil.setEnabled(true);
+        btn_optimasi.setEnabled(true);
+    }
+
+    private boolean check_parameter() {
+        boolean flag;
+        if (tf_jumlahpartikel.getText().isEmpty() || tf_jumlahiterasi.getText().isEmpty()
+                || tf_c1.getText().isEmpty() || tf_c2.getText().isEmpty()) {
+            flag = true;
+        } else {
+            flag = false;
+        }
+        return flag;
+    }
+
     private void btn_optimasiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_optimasiActionPerformed
-        
-        int jum_swarm = Integer.parseInt(tf_jumlahpartikel.getText());
-        int jum_iterasi = Integer.parseInt(tf_jumlahiterasi.getText());
-        int c1 = Integer.parseInt(tf_c1.getText());
-        int c2 = Integer.parseInt(tf_c2.getText());
-        interface_manager.do_pso(jum_swarm, c1, c2, jum_iterasi);
-        
-        
+        if (check_parameter() == false) {
+            int jum_swarm = Integer.parseInt(tf_jumlahpartikel.getText());
+            int jum_iterasi = Integer.parseInt(tf_jumlahiterasi.getText());
+            int c1 = Integer.parseInt(tf_c1.getText());
+            int c2 = Integer.parseInt(tf_c2.getText());
+            interface_manager.do_pso(jum_swarm, c1, c2, jum_iterasi,persentase2,tbl_data);
+        } else {
+            JOptionPane.showMessageDialog(null, "Parameter not null",
+                            "Error", JOptionPane.ERROR_MESSAGE);
+        }
 // TODO add your handling code here:
     }//GEN-LAST:event_btn_optimasiActionPerformed
 
     private void btn_hasilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_hasilActionPerformed
 
-        interface_manager.dofuzzysaja();
+        interface_manager.dofuzzysaja(persentase1,tbl_data);
         // TODO add your handling code here:
     }//GEN-LAST:event_btn_hasilActionPerformed
+
+    private void tf_jumlahpartikelKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tf_jumlahpartikelKeyTyped
+        // TODO add your handling code here:
+        char enter = evt.getKeyChar();
+        if(!(Character.isDigit(enter))){
+            evt.consume();
+        }
+        if (tf_jumlahpartikel.getText().length() >= 2 ) // limit textfield to 3 characters
+            evt.consume();     
+    }//GEN-LAST:event_tf_jumlahpartikelKeyTyped
+
+    private void tf_jumlahiterasiKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tf_jumlahiterasiKeyTyped
+        // TODO add your handling code here:
+        char enter = evt.getKeyChar();
+        if(!(Character.isDigit(enter))){
+            evt.consume();
+        }
+        if (tf_jumlahiterasi.getText().length() >= 2 ) // limit textfield to 3 characters
+            evt.consume();    
+    }//GEN-LAST:event_tf_jumlahiterasiKeyTyped
+
+    private void tf_c1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tf_c1KeyTyped
+        // TODO add your handling code here:
+        char enter = evt.getKeyChar();
+        if(!(Character.isDigit(enter))){
+            evt.consume();
+        }
+        if (tf_c1.getText().length() >= 2 ) // limit textfield to 3 characters
+            evt.consume();    
+    }//GEN-LAST:event_tf_c1KeyTyped
+
+    private void tf_c2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tf_c2KeyTyped
+        // TODO add your handling code here:
+        char enter = evt.getKeyChar();
+        if(!(Character.isDigit(enter))){
+            evt.consume();
+        }
+        if (tf_c2.getText().length() >= 2 ) // limit textfield to 3 characters
+            evt.consume();    
+    }//GEN-LAST:event_tf_c2KeyTyped
 
     /**
      * @param args the command line arguments
@@ -333,6 +469,15 @@ InterfaceManager interface_manager;
     private javax.swing.JButton btn_hasil;
     private javax.swing.JButton btn_load;
     private javax.swing.JButton btn_optimasi;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
@@ -345,10 +490,10 @@ InterfaceManager interface_manager;
     private javax.swing.JLabel lbl_judul;
     private javax.swing.JLabel lbl_jumlahiterasi;
     private javax.swing.JLabel lbl_jumlahpartikel;
-    private javax.swing.JLabel lbl_namafile;
     private javax.swing.JLabel lbl_parameterpso;
-    private javax.swing.JLabel lbl_persenpsotsukamoto;
-    private javax.swing.JLabel lbl_persentsukamoto;
+    private javax.swing.JLabel namafile;
+    private javax.swing.JLabel persentase1;
+    private javax.swing.JLabel persentase2;
     private javax.swing.JTable tbl_data;
     private javax.swing.JTextField tf_c1;
     private javax.swing.JTextField tf_c2;
