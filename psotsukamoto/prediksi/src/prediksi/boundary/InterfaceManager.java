@@ -25,6 +25,7 @@ public class InterfaceManager {
     ArrayList<ArrayList> rules_dokumen;
     DokumenManager excel_manager;
     ArrayList<Cuaca> data_cuaca;
+    ArrayList<String> newList;
     String[][] rule;
     TsukamotoManager TM;
     PSOTsukamotoManager F;
@@ -63,6 +64,7 @@ public class InterfaceManager {
 
                 cuaca_model.addRow(data);
             }
+
         } else {
             JOptionPane.showMessageDialog(null, "Muat Data Gagal");
         }
@@ -121,7 +123,7 @@ public class InterfaceManager {
         return rules_dokumen;
     }
 
-    public void do_pso(int jumlah_swarm, double c1, double c2, int jumlah_iterasi, JLabel persentase,JTable tbl_data) {
+    public void do_pso(int jumlah_swarm, double c1, double c2, int jumlah_iterasi, JLabel persentase, JTable tbl_data) {
         muat_rules();
         Cuaca cuaca;
 
@@ -136,8 +138,8 @@ public class InterfaceManager {
         persentase.setText(String.valueOf(TM.get_akurasi() + " %"));
     }
 
-    public void dofuzzysaja(JLabel persentase,JTable tbl_data) {
-        
+    public void dofuzzysaja(JLabel persentase, JTable tbl_data) {
+
         muat_rules();
         Cuaca cuaca;
 
@@ -151,10 +153,11 @@ public class InterfaceManager {
         String[] hasilcuaca = F.get_hasil_cuaca();
         //show to table
         DefaultTableModel cuaca_model = (DefaultTableModel) tbl_data.getModel();
-        for (int i = 0; i < data_cuaca.size(); i++) {
-                cuaca_model.addRow(hasilcuaca);
-            }
+        String[] data = new String[8];
+
+        for (int i = 0; i < hasilcuaca.length; i++) {
+            System.out.println(hasilcuaca[i]);
+        }
     }
 
- 
 }
