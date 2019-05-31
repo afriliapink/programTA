@@ -53,20 +53,19 @@ public class Interface extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         tbl_data = new javax.swing.JTable();
-        btn_optimasi = new javax.swing.JButton();
         lbl_akurasitsukamoto = new javax.swing.JLabel();
-        lbl_akurasipsotsukamoto = new javax.swing.JLabel();
-        persentase2 = new javax.swing.JLabel();
-        persentase1 = new javax.swing.JLabel();
+        persentasePSO = new javax.swing.JLabel();
         btn_hasil = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
         namafile = new javax.swing.JLabel();
+        lbl_parameterpso1 = new javax.swing.JLabel();
+        Metode = new javax.swing.JComboBox<>();
+        lbl_akurasitsukamoto_PSO = new javax.swing.JLabel();
+        persentase2 = new javax.swing.JLabel();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -148,7 +147,15 @@ public class Interface extends javax.swing.JFrame {
             new String [] {
                 "No", "Tanggal", "Suhu", "Kelembaban", "Tekanan Udara", "Kecepatan Angin", "Hasil", "Tsukamoto", "PSO dan Tsukamoto"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tbl_data.setIntercellSpacing(new java.awt.Dimension(0, 1));
         tbl_data.setRequestFocusEnabled(false);
         jScrollPane3.setViewportView(tbl_data);
@@ -172,29 +179,14 @@ public class Interface extends javax.swing.JFrame {
 
         jScrollPane1.setViewportView(jPanel1);
 
-        btn_optimasi.setFont(new java.awt.Font("Bookman Old Style", 1, 14)); // NOI18N
-        btn_optimasi.setText("optimasi");
-        btn_optimasi.setEnabled(false);
-        btn_optimasi.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_optimasiActionPerformed(evt);
-            }
-        });
-
         lbl_akurasitsukamoto.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
-        lbl_akurasitsukamoto.setText("Akurasi Tsukamoto");
+        lbl_akurasitsukamoto.setText("Akurasi FIS Tsukamoto :");
 
-        lbl_akurasipsotsukamoto.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
-        lbl_akurasipsotsukamoto.setText("Akurasi Hybrid PSO + Tsukamoto");
-
-        persentase2.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
-        persentase2.setText("-");
-
-        persentase1.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
-        persentase1.setText("-");
+        persentasePSO.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
+        persentasePSO.setText("-");
 
         btn_hasil.setFont(new java.awt.Font("Bookman Old Style", 1, 14)); // NOI18N
-        btn_hasil.setText("Hasil");
+        btn_hasil.setText("Process");
         btn_hasil.setEnabled(false);
         btn_hasil.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -210,13 +202,21 @@ public class Interface extends javax.swing.JFrame {
 
         jLabel7.setText(":");
 
-        jLabel8.setText(":");
-
         jLabel9.setText(":");
 
-        jLabel10.setText(":");
-
         namafile.setFont(new java.awt.Font("Bookman Old Style", 0, 12)); // NOI18N
+
+        lbl_parameterpso1.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
+        lbl_parameterpso1.setText("Choose Metode");
+
+        Metode.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
+        Metode.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tsukamoto", "Tsukamoto + PSO" }));
+
+        lbl_akurasitsukamoto_PSO.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
+        lbl_akurasitsukamoto_PSO.setText("Akurasi FIS Tsukamoto + PSO :");
+
+        persentase2.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
+        persentase2.setText("-");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -229,38 +229,40 @@ public class Interface extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lbl_parameterpso1)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(20, 20, 20)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lbl_jumlahpartikel)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(tf_jumlahpartikel, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(lbl_jumlahiterasi)
                                     .addComponent(lbl_c1)
                                     .addComponent(lbl_c2))
                                 .addGap(29, 29, 29)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(tf_c2))
+                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(tf_c1))
+                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(tf_jumlahiterasi, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(tf_c2))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(tf_c1))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(tf_jumlahiterasi, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(lbl_jumlahpartikel)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tf_jumlahpartikel, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btn_hasil)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btn_optimasi))
+                                        .addComponent(Metode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                     .addComponent(lbl_parameterpso)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1082, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
@@ -268,26 +270,18 @@ public class Interface extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(namafile))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lbl_akurasipsotsukamoto)
-                            .addComponent(lbl_akurasitsukamoto))
+                        .addComponent(btn_hasil)
+                        .addGap(84, 84, 84)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lbl_akurasitsukamoto_PSO)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(persentase2))
+                                .addComponent(persentasePSO, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(11, 11, 11)
-                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(persentase1)))))
+                                .addComponent(lbl_akurasitsukamoto)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(persentase2, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(24, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(197, 197, 197)
-                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(915, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -320,28 +314,23 @@ public class Interface extends javax.swing.JFrame {
                     .addComponent(lbl_c2)
                     .addComponent(tf_c2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(16, 16, 16)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbl_parameterpso1)
+                    .addComponent(jLabel9)
+                    .addComponent(Metode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btn_hasil, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
-                    .addComponent(btn_optimasi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btn_hasil, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lbl_akurasitsukamoto)
-                    .addComponent(persentase1)
-                    .addComponent(jLabel8))
-                .addGap(18, 18, 18)
+                    .addComponent(persentase2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbl_akurasipsotsukamoto)
-                    .addComponent(persentase2)
-                    .addComponent(jLabel10))
+                    .addComponent(lbl_akurasitsukamoto_PSO)
+                    .addComponent(persentasePSO, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(134, 134, 134)
-                    .addComponent(jLabel9)
-                    .addContainerGap(342, Short.MAX_VALUE)))
         );
 
         pack();
@@ -350,13 +339,13 @@ public class Interface extends javax.swing.JFrame {
 
     private void btn_loadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_loadActionPerformed
         // TODO add your handling code here:
-        interface_manager.Load_Data(tbl_data,namafile);
+        interface_manager.Load_Data(tbl_data, namafile);
         enable_button();
     }//GEN-LAST:event_btn_loadActionPerformed
 
     private void enable_button() {
         btn_hasil.setEnabled(true);
-        btn_optimasi.setEnabled(true);
+        
     }
 
     private boolean check_parameter() {
@@ -370,64 +359,74 @@ public class Interface extends javax.swing.JFrame {
         return flag;
     }
 
-    private void btn_optimasiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_optimasiActionPerformed
-        if (check_parameter() == false) {
-            int jum_swarm = Integer.parseInt(tf_jumlahpartikel.getText());
-            int jum_iterasi = Integer.parseInt(tf_jumlahiterasi.getText());
-            int c1 = Integer.parseInt(tf_c1.getText());
-            int c2 = Integer.parseInt(tf_c2.getText());
-            interface_manager.do_pso(jum_swarm, c1, c2, jum_iterasi,persentase2,tbl_data);
-        } else {
-            JOptionPane.showMessageDialog(null, "Parameter not null",
-                            "Error", JOptionPane.ERROR_MESSAGE);
-        }
-// TODO add your handling code here:
-    }//GEN-LAST:event_btn_optimasiActionPerformed
-
     private void btn_hasilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_hasilActionPerformed
+        int pilihan = Metode.getSelectedIndex();
+        if (pilihan == 0) {
+            System.out.println("Choose Tsukamoto");
+            interface_manager.dofuzzysaja(persentase2, tbl_data);
+        } else {
+            System.out.println("Choose PSO+Tsukamoto");
+            if (check_parameter() == false) {
+                int jum_swarm = Integer.parseInt(tf_jumlahpartikel.getText());
+                int jum_iterasi = Integer.parseInt(tf_jumlahiterasi.getText());
+                int c1 = Integer.parseInt(tf_c1.getText());
+                int c2 = Integer.parseInt(tf_c2.getText());
+                interface_manager.do_pso(jum_swarm, c1, c2, jum_iterasi, persentasePSO, tbl_data);
+            } else {
+                JOptionPane.showMessageDialog(null, "Parameter not null",
+                        "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
 
-        interface_manager.dofuzzysaja(persentase1,tbl_data);
         // TODO add your handling code here:
     }//GEN-LAST:event_btn_hasilActionPerformed
 
     private void tf_jumlahpartikelKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tf_jumlahpartikelKeyTyped
         // TODO add your handling code here:
         char enter = evt.getKeyChar();
-        if(!(Character.isDigit(enter))){
+        if (!(Character.isDigit(enter))) {
             evt.consume();
         }
-        if (tf_jumlahpartikel.getText().length() >= 2 ) // limit textfield to 3 characters
-            evt.consume();     
+        if (tf_jumlahpartikel.getText().length() >= 2) // limit textfield to 3 characters
+        {
+            evt.consume();
+        }
     }//GEN-LAST:event_tf_jumlahpartikelKeyTyped
 
     private void tf_jumlahiterasiKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tf_jumlahiterasiKeyTyped
         // TODO add your handling code here:
         char enter = evt.getKeyChar();
-        if(!(Character.isDigit(enter))){
+        if (!(Character.isDigit(enter))) {
             evt.consume();
         }
-        if (tf_jumlahiterasi.getText().length() >= 2 ) // limit textfield to 3 characters
-            evt.consume();    
+        if (tf_jumlahiterasi.getText().length() >= 2) // limit textfield to 3 characters
+        {
+            evt.consume();
+        }
     }//GEN-LAST:event_tf_jumlahiterasiKeyTyped
 
     private void tf_c1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tf_c1KeyTyped
         // TODO add your handling code here:
         char enter = evt.getKeyChar();
-        if(!(Character.isDigit(enter))){
+        if (!(Character.isDigit(enter))) {
             evt.consume();
         }
-        if (tf_c1.getText().length() >= 2 ) // limit textfield to 3 characters
-            evt.consume();    
+        if (tf_c1.getText().length() >= 2) // limit textfield to 3 characters
+        {
+            evt.consume();
+        }
     }//GEN-LAST:event_tf_c1KeyTyped
 
     private void tf_c2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tf_c2KeyTyped
         // TODO add your handling code here:
         char enter = evt.getKeyChar();
-        if(!(Character.isDigit(enter))){
+        if (!(Character.isDigit(enter))) {
             evt.consume();
         }
-        if (tf_c2.getText().length() >= 2 ) // limit textfield to 3 characters
-            evt.consume();    
+        if (tf_c2.getText().length() >= 2) // limit textfield to 3 characters
+        {
+            evt.consume();
+        }
     }//GEN-LAST:event_tf_c2KeyTyped
 
     /**
@@ -466,34 +465,33 @@ public class Interface extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> Metode;
     private javax.swing.JButton btn_hasil;
     private javax.swing.JButton btn_load;
-    private javax.swing.JButton btn_optimasi;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTable1;
-    private javax.swing.JLabel lbl_akurasipsotsukamoto;
     private javax.swing.JLabel lbl_akurasitsukamoto;
+    private javax.swing.JLabel lbl_akurasitsukamoto_PSO;
     private javax.swing.JLabel lbl_c1;
     private javax.swing.JLabel lbl_c2;
     private javax.swing.JLabel lbl_judul;
     private javax.swing.JLabel lbl_jumlahiterasi;
     private javax.swing.JLabel lbl_jumlahpartikel;
     private javax.swing.JLabel lbl_parameterpso;
+    private javax.swing.JLabel lbl_parameterpso1;
     private javax.swing.JLabel namafile;
-    private javax.swing.JLabel persentase1;
     private javax.swing.JLabel persentase2;
+    private javax.swing.JLabel persentasePSO;
     private javax.swing.JTable tbl_data;
     private javax.swing.JTextField tf_c1;
     private javax.swing.JTextField tf_c2;

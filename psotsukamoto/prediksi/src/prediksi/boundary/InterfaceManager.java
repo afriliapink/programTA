@@ -10,9 +10,9 @@ import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
-import prediksi.Controller.TsukamotoManager;
+import prediksi.Controller.PSOTsukamotoManager;
 import prediksi.controller.DokumenManager;
-import prediksi.controller.PSOTsukamotoManager;
+import prediksi.controller.TsukamotoManager;
 import prediksi.entity.Cuaca;
 
 /**
@@ -27,8 +27,8 @@ public class InterfaceManager {
     ArrayList<Cuaca> data_cuaca;
     ArrayList<String> newList;
     String[][] rule;
-    TsukamotoManager TM;
-    PSOTsukamotoManager F;
+    PSOTsukamotoManager TM;
+    TsukamotoManager F;
 
     public void Load_Data(JTable tbl_data, JLabel Namafile) {
         ArrayList<Cuaca> data_cuaca;
@@ -124,10 +124,11 @@ public class InterfaceManager {
     }
 
     public void do_pso(int jumlah_swarm, double c1, double c2, int jumlah_iterasi, JLabel persentase, JTable tbl_data) {
+        int i;
         muat_rules();
         Cuaca cuaca;
 
-        TM = new TsukamotoManager(jumlah_swarm, c1, c2, jumlah_iterasi);
+        TM = new PSOTsukamotoManager(jumlah_swarm, c1, c2, jumlah_iterasi);
 //        TM.bangkit_swarm(jumlah_swarm);
         TM.init_cuaca(data_cuaca);
 //        TM.do_fuzzyfikasi();
@@ -136,14 +137,21 @@ public class InterfaceManager {
 //        TM.agregasi();
         TM.pso_fuzzzifikasi();
         persentase.setText(String.valueOf(TM.get_akurasi() + " %"));
+        String[] hasil_cuaca = TM.Get_Hasil_Cuaca();
+        //show to table
+        DefaultTableModel cuaca_model = (DefaultTableModel) tbl_data.getModel();
+        
+        for(i=0;i<hasil_cuaca.length;i++){
+//            System.out.println(hasil_cuaca[i]);
+            cuaca_model.setValueAt(hasil_cuaca[i], i, 8);
+        }
     }
 
     public void dofuzzysaja(JLabel persentase, JTable tbl_data) {
-
         muat_rules();
         Cuaca cuaca;
-
-        F = new PSOTsukamotoManager();
+        int i;
+        F = new TsukamotoManager();
         F.init_rules(rules_dokumen);
         F.init_cuaca(data_cuaca);
         F.do_fuzzyfikasi();
@@ -153,11 +161,12 @@ public class InterfaceManager {
         String[] hasilcuaca = F.get_hasil_cuaca();
         //show to table
         DefaultTableModel cuaca_model = (DefaultTableModel) tbl_data.getModel();
-        String[] data = new String[8];
-
-        for (int i = 0; i < hasilcuaca.length; i++) {
-            System.out.println(hasilcuaca[i]);
+       
+        for(i=0;i<hasilcuaca.length;i++){
+//            System.out.println(hasilcuaca[i]);
+            cuaca_model.setValueAt(hasilcuaca[i], i, 7);
         }
+       
     }
 
 }
