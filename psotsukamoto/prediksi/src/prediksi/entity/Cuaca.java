@@ -12,7 +12,6 @@ package prediksi.entity;
 public class Cuaca {
     double no, suhu, kelembaban, tekanan_udara, kecepatan_angin;
     String tanggal, keadaan_cuaca;
-    String dcuaca;
 
     public Cuaca() {
     }
@@ -73,14 +72,6 @@ public class Cuaca {
 
     public void setKeadaan_cuaca(String keadaan_cuaca) {
         this.keadaan_cuaca = keadaan_cuaca;
-    }
-
-    public String getDcuaca() {
-        return dcuaca;
-    }
-
-    public void setDcuaca(String dcuaca) {
-        this.dcuaca = dcuaca;
     }
     
 }

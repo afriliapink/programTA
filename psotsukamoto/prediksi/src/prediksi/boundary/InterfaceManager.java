@@ -30,7 +30,7 @@ public class InterfaceManager {
     PSOTsukamotoManager TM;
     TsukamotoManager F;
 
-    public void Load_Data(JTable tbl_data, JLabel Namafile) {
+    public void Load_Data(JTable tbl_data, JTextField Namafile) {
         ArrayList<Cuaca> data_cuaca;
         data_cuaca = new ArrayList();
         String path;
@@ -43,7 +43,9 @@ public class InterfaceManager {
         if (result == JFileChooser.APPROVE_OPTION) {
             File selectedFile = chooser.getSelectedFile();
             path = selectedFile.getAbsolutePath();
-            Namafile.setText(selectedFile.getName());
+            Namafile.setText(selectedFile.getAbsolutePath());
+            //Namafile.setText(selectedFile.getAbsolutePath());
+            //Namafile.setText(selectedFile.getName());
             data_cuaca = muat_data_excel(path);
 
             DefaultTableModel cuaca_model = (DefaultTableModel) tbl_data.getModel();
@@ -64,9 +66,11 @@ public class InterfaceManager {
 
                 cuaca_model.addRow(data);
             }
+            JOptionPane.showMessageDialog(null, "Data berhasil dimuat");
 
         } else {
-            JOptionPane.showMessageDialog(null, "Muat Data Gagal");
+            JOptionPane.showMessageDialog(null, "Muat data gagal", "Pesan Error", JOptionPane.ERROR_MESSAGE);
+            //JOptionPane.showMessageDialog(null, "Muat Data Gagal");
         }
     }
 
@@ -77,10 +81,13 @@ public class InterfaceManager {
         excel_manager = new DokumenManager();
         excel_dokumen = excel_manager.getDataExcel(path);
 
-        baris_excel = excel_dokumen.size() - 1;
+        baris_excel = excel_dokumen.size()-1;
         kolom_excel = excel_dokumen.get(0).size();
 
         data_cuaca = new ArrayList<>();
+        
+//        System.out.println("baris : "+baris_excel);
+//        System.out.println("kolom : "+kolom_excel);
 
         for (int i = 0; i < baris_excel; i++) {
             cuaca = new Cuaca();
@@ -149,14 +156,14 @@ public class InterfaceManager {
 
     public void dofuzzysaja(JLabel persentase, JTable tbl_data) {
         muat_rules();
-        Cuaca cuaca;
+        //Cuaca cuaca;
         int i;
         F = new TsukamotoManager();
         F.init_rules(rules_dokumen);
         F.init_cuaca(data_cuaca);
         F.do_fuzzyfikasi();
         F.do_hitung_fuzzy_tsukamoto();
-        F.agregasi();
+        //F.agregasi();
         persentase.setText(String.valueOf(F.agregasi() + " %"));
         String[] hasilcuaca = F.get_hasil_cuaca();
         //show to table

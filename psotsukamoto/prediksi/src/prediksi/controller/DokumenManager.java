@@ -16,11 +16,12 @@ public class DokumenManager {
     Dokumen dokumen_excel;
 
     public DokumenManager() {
-        dokumen_excel = new Dokumen();
+        //dokumen_excel = new Dokumen();
     }
     
     public ArrayList<ArrayList> getDataExcel(String path)
     {
+        dokumen_excel = new Dokumen();
         ArrayList<ArrayList> data_excel;
         
         data_excel = dokumen_excel.load_excel(path);

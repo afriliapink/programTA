@@ -82,12 +82,13 @@ public class PSOTsukamotoManager {
         Random r = new Random();
         double wk = r.nextDouble();
         int pilih;
-        f_anggota_swarm = new double[swarm][12];
+        int panjang_partikel = 12;
+        f_anggota_swarm = new double[swarm][panjang_partikel];
         double[] temp, temp1;
         DecimalFormat format = new DecimalFormat("####,####");
 
         for (int i = 0; i < swarm; i++) {
-            for (int j = 0; j < 12; j++) {
+            for (int j = 0; j < panjang_partikel; j++) {
                 //x suhu baru
                 pilih = r.nextInt(2);
                 if (j < 3) {
@@ -439,6 +440,7 @@ public class PSOTsukamotoManager {
         String[][] hasil_cuaca;
         double[][] m_keanggotan_rule;
         double total, z, x1, x2, x3, x4;
+        DecimalFormat format = new DecimalFormat("####,##");
 
         hasil_cuaca = new String[listm_keanggotaan_swarm.size()][listm_keanggotaan_swarm.get(0).size()];
         tingkat_akurasi = new double[jumlah_swarm];
@@ -535,6 +537,7 @@ public class PSOTsukamotoManager {
                 }
             }
             tingkat_akurasi[i] = (tingkat_akurasi[i] / data_cuaca.size()) * 100;
+            tingkat_akurasi[i] = Double.parseDouble(String.format("%.3f", tingkat_akurasi[i]).replace(",", "."));
             System.out.println("tingkat akurasi = " + tingkat_akurasi[i]);
         }
         
@@ -553,7 +556,7 @@ public class PSOTsukamotoManager {
         System.out.println("L = "+length);
         Best_Hasil_Cuaca = new String[length];
         for(j=0;j<hasil_cuaca[0].length;j++){
-            Best_Hasil_Cuaca[j] = hasil_cuaca[j][index];
+            Best_Hasil_Cuaca[j] = hasil_cuaca[index][j];
             counter++;
         }
 

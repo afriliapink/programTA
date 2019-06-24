@@ -73,7 +73,7 @@ public class TsukamotoManager {
 //      +++++++++++++ Suhu Hangat ++++++++++++++++++++++++++++++++++++++++++++++                    
             if (data_cuaca.get(i).getSuhu() > f_anggota_lama[0] && data_cuaca.get(i).getSuhu() <= f_anggota_lama[1]) {
                 f_keanggotaan_cuaca[i][1] = Double.parseDouble(String.format("%.2f", (data_cuaca.get(i).getSuhu() - f_anggota_lama[0]) / (f_anggota_lama[1] - f_anggota_lama[0])).replace(",", "."));
-            } else if (data_cuaca.get(i).getSuhu() > f_anggota_lama[1] && data_cuaca.get(i).getSuhu() <= f_anggota_lama[i]) {
+            } else if (data_cuaca.get(i).getSuhu() > f_anggota_lama[1] && data_cuaca.get(i).getSuhu() <= f_anggota_lama[2]) {
                 f_keanggotaan_cuaca[i][1] = Double.parseDouble(String.format("%.2f", (f_anggota_lama[2] - data_cuaca.get(i).getSuhu()) / (f_anggota_lama[2] - f_anggota_lama[1])).replace(",", "."));
             } else {
                 f_keanggotaan_cuaca[i][1] = 0;
@@ -285,8 +285,8 @@ public class TsukamotoManager {
         x4 = 0;
 
         m_keanggotan_rule = new double[m_keanggotaan.length][m_keanggotaan[0].length];
-        System.out.println("m_keanggotaan rule1 : " + m_keanggotaan.length);
-        System.out.println("m_keanggotaan rule2 : " + m_keanggotaan[0].length);
+//        System.out.println("m_keanggotaan rule1 : " + m_keanggotaan.length);
+//        System.out.println("m_keanggotaan rule2 : " + m_keanggotaan[0].length);
 
         for (int i = 0; i < m_keanggotaan.length; i++) {
             for (int j = 0; j < m_keanggotaan[0].length; j++) {
@@ -368,6 +368,7 @@ public class TsukamotoManager {
             }
         }
         tingkat_akurasi = (tingkat_akurasi / data_cuaca.size()) * 100;
+        tingkat_akurasi = Double.parseDouble(String.format("%.3f", tingkat_akurasi).replace(",", "."));
         System.out.println("tingkat akurasi = " + tingkat_akurasi);
         
        
